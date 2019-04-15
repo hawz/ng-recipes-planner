@@ -5,6 +5,7 @@ import { UIService } from '../shared/ui.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { UserService } from '../shared/user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,8 @@ export class AuthService {
   constructor(
     private uiService: UIService,
     private afAuth: AngularFireAuth,
-    private router: Router
+    private router: Router,
+    private userService: UserService
   ) { }
 
   registerUser(authData: AuthData) {
@@ -56,8 +58,8 @@ export class AuthService {
   initAuthListener() {
     this.afAuth.authState.subscribe(user => {
       if (user) {
-        console.log(user);
         // user is authenticated
+        this.userService.setUser(user);
         this.isAuthenticated = true;
         this.authChange.next(true);
         this.router.navigate(['/recipes']);
