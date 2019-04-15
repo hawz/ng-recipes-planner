@@ -12,22 +12,26 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
 import { HeaderComponent } from './navigation/header/header.component';
 import { AuthModule } from './auth/auth.module';
+import { RecipesModule } from './recipes/recipes.module';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     WelcomeComponent,
     SidenavListComponent,
-    HeaderComponent
+    HeaderComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
     MaterialModule,
     BrowserAnimationsModule,
-    AppRoutingModule,
     FlexLayoutModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AuthModule
+    AuthModule,
+    RecipesModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
