@@ -17,4 +17,8 @@ export class HeaderComponent implements OnInit {
     this.sidenavToggle.emit();
   }
 
+  onLogout() {
+    console.log('logout user');
+  }
+
 }

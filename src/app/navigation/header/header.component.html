@@ -4,4 +4,15 @@
       <mat-icon>menu</mat-icon>
     </button>
   </div>
+  <div>
+    <a routerLink="/">Meal Planner</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
+    <ul fxLayout fxLayoutGap="10px" class="navigation-items">
+      <li><a routerLink="/signup">Register</a></li>
+      <li><a routerLink="/login">Login</a></li>
+      <li><a routerLink="/recipes">Recipes</a></li>
+      <li><a (click)="onLogout()">Logout</a></li>
+    </ul>
+  </div>
 </mat-toolbar>
