@@ -3,11 +3,15 @@ import { Injectable } from '@angular/core';
 import { AuthData } from './auth-data.model';
 import { UIService } from '../shared/ui.service';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  private isAuthenticated = false;
+  authChange = new Subject<boolean>();
+
   constructor(
     private uiService: UIService,
     private afAuth: AngularFireAuth
@@ -27,6 +31,7 @@ export class AuthService {
         error => {
           console.log(error);
           this.uiService.loadingStateChanged.next(false);
+          this.uiService.openSnackBar(error.message, null, 3000);
         }
       );
   }
@@ -42,6 +47,31 @@ export class AuthService {
       .catch(error => {
         console.log(error);
         this.uiService.loadingStateChanged.next(false);
+        this.uiService.openSnackBar(error.message, null, 3000);
       });
+  }
+
+  initAuthListener() {
+    this.afAuth.authState.subscribe(user => {
+      if (user) {
+        console.log(user);
+        // user is authenticated
+        this.isAuthenticated = true;
+        this.authChange.next(true);
+      } else {
+        console.log(user);
+        // NO user authenticated
+        this.isAuthenticated = false;
+        this.authChange.next(false);
+      }
+    });
+  }
+
+  logout() {
+    this.afAuth.auth.signOut();
+  }
+
+  isAuth() {
+    return this.isAuthenticated;
   }
 }
