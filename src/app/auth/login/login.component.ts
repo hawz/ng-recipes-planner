@@ -3,6 +3,7 @@ import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 
 import { UIService } from 'src/app/shared/ui.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   isLoading = false;
   private loadingSubscription: Subscription;
 
-  constructor(private uiService: UIService) { }
+  constructor(private uiService: UIService, private authService: AuthService) { }
 
   ngOnInit() {
     this.loadingSubscription = this.uiService.loadingStateChanged.subscribe(
@@ -23,6 +24,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   onSubmit(loginForm: NgForm) {
     console.log('submit', loginForm);
+    this.authService.login(loginForm.value);
   }
 
   ngOnDestroy() {
