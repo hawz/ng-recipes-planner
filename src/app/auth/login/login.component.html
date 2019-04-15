@@ -16,7 +16,7 @@
       <button type="submit" mat-raised-button color="primary" [disabled]="loginForm.invalid" *ngIf="!isLoading">
         Login
       </button>
-      <p style="text-align: center;">Don't have an account?<br /><a routerLink="/signup">Register</a></p>
+      <p *ngIf="!isLoading">Don't have an account?<br /><a routerLink="/signup">Register</a></p>
       <mat-spinner *ngIf="isLoading"></mat-spinner>
     </form>
   </mat-card>
