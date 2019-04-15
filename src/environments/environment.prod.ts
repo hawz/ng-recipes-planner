@@ -7,5 +7,9 @@ export const environment = {
     projectId: 'ng-meal-planner-cdfa4',
     storageBucket: 'ng-meal-planner-cdfa4.appspot.com',
     messagingSenderId: '593866636203'
+  },
+  bigOven: {
+    apiKey: 'Z6Tnh1gToaeIZG64YkHnhog0gv2kA36Z',
+    apiURL: 'http://api.bigoven.com'
   }
 };
