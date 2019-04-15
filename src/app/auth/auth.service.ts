@@ -4,6 +4,7 @@ import { AuthData } from './auth-data.model';
 import { UIService } from '../shared/ui.service';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthService {
 
   constructor(
     private uiService: UIService,
-    private afAuth: AngularFireAuth
+    private afAuth: AngularFireAuth,
+    private router: Router
   ) { }
 
   registerUser(authData: AuthData) {
@@ -58,11 +60,12 @@ export class AuthService {
         // user is authenticated
         this.isAuthenticated = true;
         this.authChange.next(true);
+        this.router.navigate(['/recipes']);
       } else {
-        console.log(user);
         // NO user authenticated
         this.isAuthenticated = false;
         this.authChange.next(false);
+        this.router.navigate(['/login']);
       }
     });
   }
