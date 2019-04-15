@@ -1,13 +1,11 @@
 <mat-nav-list>
 
-  <a mat-list-item (click)="onClose()">
-    <!-- routerLink="/signup" -->
+  <a mat-list-item routerLink="/signup" (click)="onClose()">
     <mat-icon>face</mat-icon>
     <span class="nav-caption">Register</span>
   </a>
 
-  <a mat-list-item (click)="onClose()">
-    <!-- routerLink="/login" -->
+  <a mat-list-item routerLink="/login" (click)="onClose()">
     <mat-icon>input</mat-icon>
     <span class="nav-caption">Login</span>
   </a>
@@ -17,8 +15,7 @@
     <span class="nav-caption">Logout</span>
   </a>
 
-  <a mat-list-item (click)="onClose()">
-    <!-- routerLink="/recipes" -->
+  <a mat-list-item routerLink="/recipes" (click)="onClose()">
     <mat-icon>fastfood</mat-icon>
     <span class="nav-caption">Recipes</span>
   </a>
