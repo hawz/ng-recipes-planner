@@ -7,11 +7,15 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './material.module';
 import { WelcomeComponent } from './welcome/welcome.component';
+import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
+import { HeaderComponent } from './navigation/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeComponent
+    WelcomeComponent,
+    SidenavListComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
