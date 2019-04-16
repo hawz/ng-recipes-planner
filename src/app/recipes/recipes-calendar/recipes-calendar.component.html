@@ -1,3 +1,5 @@
-<p>
-  recipes-calendar works!
-</p>
+<mat-grid-list cols="3">
+  <mat-grid-tile *ngFor="let dailyMenu of weekMenu" [colspan]="1" [rowspan]="2" [style.background]="'lightgreen'">
+    <mat-grid-tile-header>{{ dailyMenu.day }}</mat-grid-tile-header>
+  </mat-grid-tile>
+</mat-grid-list>
