@@ -14,6 +14,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatGridListModule
   ],
   exports: [
     MatSidenavModule,
@@ -46,7 +48,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatNativeDateModule,
     MatCheckboxModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    MatGridListModule
   ]
 })
 export class MaterialModule { }
