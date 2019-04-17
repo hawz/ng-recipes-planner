@@ -27,7 +27,6 @@ export class RecipesService {
     }
 
     const queryURL = `${this.serviceAPIUrl}/recipes?api_key=${this.serviceAPIKey}${searchQuery}&pg=${page}&rpp=${resultsPerPage}`;
-    console.log('dentro fetchRecipes', queryURL);
 
     return this.httpClient.get(queryURL, {
       observe: 'body',
@@ -48,7 +47,35 @@ export class RecipesService {
     );
   }
 
-  fetchRecipe(recipeId: number) {
+  fetchRecipe(recipeId: number): Observable<Recipe> {
+    this.uiService.loadingStateChanged.next(true);
+    const queryURL = `${this.serviceAPIUrl}/recipe/${recipeId}?api_key=${this.serviceAPIKey}`;
+    console.log('fetching single recipe: ', queryURL);
+    return this.httpClient.get(queryURL)
+      .pipe(
+        map((response: any) => {
+          this.uiService.loadingStateChanged.next(false);
+          const recipe: Recipe = {
+            recipeId: response.RecipeID,
+            name: response.Title,
+            category: response.Category,
+            subcategory: response.Subcategory,
+            description: response.Instructions,
+            imageURL: response.ImageURL,
+            imageSmallURL: response.ImageURL,
+            ingredients: response.Ingredients
+          };
+          return recipe;
+        }),
+        catchError((error) => {
+          this.uiService.loadingStateChanged.next(false);
+          this.uiService.openSnackBar('Fetching the selected recipe failed, please try again later.', null, 3000);
+          return of(null);
+        })
+      );
+  }
+
+  saveRecipeToDB(recipe: Recipe) {
 
   }
 
