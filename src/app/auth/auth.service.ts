@@ -6,6 +6,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
 import { UserService } from '../shared/user.service';
+import { RecipesService } from '../recipes/recipes.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,8 @@ export class AuthService {
     private uiService: UIService,
     private afAuth: AngularFireAuth,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private recipesService: RecipesService
   ) { }
 
   registerUser(authData: AuthData) {
@@ -27,8 +29,8 @@ export class AuthService {
       .createUserWithEmailAndPassword(authData.email, authData.password)
       .then(
         result => {
-          console.log(result);
           this.uiService.loadingStateChanged.next(false);
+          this.uiService.openSnackBar('User registered succesfully!', null, 3000);
         }
       )
       .catch(
@@ -65,9 +67,10 @@ export class AuthService {
         this.router.navigate(['/recipes']);
       } else {
         // NO user authenticated
+        this.recipesService.cancelSubscriptions();
         this.isAuthenticated = false;
         this.authChange.next(false);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/']);
       }
     });
   }
