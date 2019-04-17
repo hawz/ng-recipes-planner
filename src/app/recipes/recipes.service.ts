@@ -17,8 +17,9 @@ export class RecipesService {
   readonly serviceAPIKey = environment.bigOven.apiKey;
   recipes: Recipe[] = [];
   recipesChanged = new Subject<Recipe[]>();
+  menuChanged = new Subject<Recipe[]>();
   resultsNumberChanged = new Subject<number>();
-  private firebaseSubscriptions: Subscription[];
+  private firebaseSubscriptions: Subscription[] = [];
 
   constructor(
     private httpClient: HttpClient,
@@ -88,6 +89,49 @@ export class RecipesService {
       ...recipe,
       userId
     });
+  }
+
+  getWeekMenu() {
+
+    const startDay = new Date();
+    const endDay = new Date();
+    startDay.setDate(startDay.getDate() + 0);
+    startDay.setHours(0);
+    startDay.setMinutes(0);
+    startDay.setSeconds(0);
+    startDay.setMilliseconds(0);
+    endDay.setDate(endDay.getDate() + 7);
+    endDay.setHours(0);
+    endDay.setMinutes(0);
+    endDay.setSeconds(0);
+    endDay.setMilliseconds(0);
+
+    console.log(startDay, endDay);
+
+    this.firebaseSubscriptions.push(
+      this.db
+        .collection('savedRecipes', ref =>
+          ref
+            .where('userId', '==', this.userService.getUser().uid)
+            .where('date', '>=', startDay)
+            .where('date', '<', endDay)
+        )
+        .valueChanges()
+        .subscribe(
+          (recipes: Recipe[]) => {
+            this.menuChanged.next(recipes);
+          },
+          (err) => {
+            // console.log(err);
+            this.uiService.openSnackBar('Error fetching recipes from database. Please try again later.', null, 3000);
+            this.menuChanged.next([]);
+          }
+        )
+    );
+  }
+
+  cancelSubscriptions() {
+    this.firebaseSubscriptions.forEach(sub => sub.unsubscribe());
   }
 
   private setRecipes(response) {
