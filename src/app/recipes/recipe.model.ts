@@ -1,8 +1,10 @@
 export interface Recipe {
   name: string;
-  userUID: string;
+  category: string;
+  subcategory: string;
+  userUID?: string;
   recipeId: number;
-  description: string;
+  description?: string;
   imageURL: string;
   imageSmallURL: string;
   date?: Date;
