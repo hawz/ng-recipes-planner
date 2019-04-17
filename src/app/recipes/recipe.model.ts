@@ -8,6 +8,6 @@ export interface Recipe {
   description?: string;
   imageURL: string;
   imageSmallURL: string;
-  date?: Date;
+  date?: any;
   meal?: 'breakfast' | 'lunch' | 'dinner' | null;
 }
