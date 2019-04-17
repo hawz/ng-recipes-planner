@@ -1,7 +1,6 @@
 <div fxLayoutAlign="center center">
   <form #searchForm="ngForm" fxFlex="90%">
     <mat-form-field>
-      <!-- (keydown)="searchRecipe($event)" -->
       <input type="text" matInput placeholder="Search recipe" name="searchText" ngModel #searchText="ngModel">
     </mat-form-field>
   </form>
@@ -25,6 +24,6 @@
     <mat-cell *matCellDef="let element">{{ element.subcategory }}</mat-cell>
   </ng-container>
   <mat-header-row *matHeaderRowDef="displayedColumns;"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns" (click)="selectRecipe(row)"></mat-row>
+  <mat-row *matRowDef="let row; columns: displayedColumns" [routerLink]="[row.recipeId]"></mat-row>
 </mat-table>
 <mat-paginator [length]="resultsLength" [pageSize]="10"></mat-paginator>

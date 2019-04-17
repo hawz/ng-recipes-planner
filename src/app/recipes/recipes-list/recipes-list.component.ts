@@ -97,8 +97,4 @@ export class RecipesListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.resultsNumberSubs.unsubscribe();
     }
   }
-
-  selectRecipe(recipe) {
-    console.log('selected ', recipe);
-  }
 }
