@@ -92,9 +92,9 @@ export class RecipesService {
   }
 
   getWeekMenu() {
-
     const startDay = new Date();
     const endDay = new Date();
+
     startDay.setDate(startDay.getDate() + 0);
     startDay.setHours(0);
     startDay.setMinutes(0);
@@ -105,8 +105,6 @@ export class RecipesService {
     endDay.setMinutes(0);
     endDay.setSeconds(0);
     endDay.setMilliseconds(0);
-
-    console.log(startDay, endDay);
 
     this.firebaseSubscriptions.push(
       this.db
@@ -122,7 +120,6 @@ export class RecipesService {
             this.menuChanged.next(recipes);
           },
           (err) => {
-            // console.log(err);
             this.uiService.openSnackBar('Error fetching recipes from database. Please try again later.', null, 3000);
             this.menuChanged.next([]);
           }
