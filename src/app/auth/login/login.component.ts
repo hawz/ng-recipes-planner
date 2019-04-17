@@ -23,7 +23,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onSubmit(loginForm: NgForm) {
-    console.log('submit', loginForm);
     this.authService.login(loginForm.value);
   }
 
