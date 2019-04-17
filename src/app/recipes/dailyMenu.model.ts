@@ -1,7 +1,7 @@
 import { Recipe } from './recipe.model';
 
 export interface DailyMenu {
-  day: string;
+  day?: string;
   date: Date;
   breakfast: Recipe[];
   lunch: Recipe[];
