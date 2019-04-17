@@ -1,0 +1,9 @@
+section {
+  padding: 20px;
+}
+.header-image {
+  background-size: cover;
+}
+.header-image img {
+  max-width: 48px;
+}
