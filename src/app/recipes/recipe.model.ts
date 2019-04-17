@@ -2,7 +2,8 @@ export interface Recipe {
   name: string;
   category: string;
   subcategory: string;
-  userUID?: string;
+  userId?: string;
+  ingredients?: any[];
   recipeId: number;
   description?: string;
   imageURL: string;
