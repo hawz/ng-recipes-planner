@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Subject, throwError, Observable, of } from 'rxjs';
+import { Subject, Observable, of, Subscription } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 import { environment } from 'src/environments/environment';
 import { Recipe } from './recipe.model';
 import { UIService } from '../shared/ui.service';
+import { UserService } from '../shared/user.service';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +18,14 @@ export class RecipesService {
   recipes: Recipe[] = [];
   recipesChanged = new Subject<Recipe[]>();
   resultsNumberChanged = new Subject<number>();
+  private firebaseSubscriptions: Subscription[];
 
-  constructor(private httpClient: HttpClient, private uiService: UIService) { }
+  constructor(
+    private httpClient: HttpClient,
+    private uiService: UIService,
+    private userService: UserService,
+    private db: AngularFirestore
+  ) { }
 
   fetchRecipes(searchText: string = null, page: number = 1, resultsPerPage: number = 10): Observable<Recipe[]> {
     this.uiService.loadingStateChanged.next(true);
@@ -50,7 +58,6 @@ export class RecipesService {
   fetchRecipe(recipeId: number): Observable<Recipe> {
     this.uiService.loadingStateChanged.next(true);
     const queryURL = `${this.serviceAPIUrl}/recipe/${recipeId}?api_key=${this.serviceAPIKey}`;
-    console.log('fetching single recipe: ', queryURL);
     return this.httpClient.get(queryURL)
       .pipe(
         map((response: any) => {
@@ -75,8 +82,12 @@ export class RecipesService {
       );
   }
 
-  saveRecipeToDB(recipe: Recipe) {
-
+  addRecipe(recipe: Recipe) {
+    const userId = this.userService.getUser().uid;
+    this.saveDataToDB({
+      ...recipe,
+      userId
+    });
   }
 
   private setRecipes(response) {
@@ -93,5 +104,19 @@ export class RecipesService {
       });
     }
     this.recipesChanged.next([...this.recipes]);
+  }
+
+  private saveDataToDB(recipe: Recipe) {
+    this.uiService.loadingStateChanged.next(true);
+    this.db.collection('savedRecipes')
+      .add(recipe)
+      .then(() => {
+        this.uiService.loadingStateChanged.next(false);
+        this.uiService.openSnackBar('Recipe saved!', null, 3000);
+      })
+      .catch(err => {
+        this.uiService.loadingStateChanged.next(false);
+        this.uiService.openSnackBar(err.message, null, 3000);
+      });
   }
 }

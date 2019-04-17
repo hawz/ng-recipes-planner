@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
 import { MatDialog } from '@angular/material';
 import { RecipeAddComponent } from '../recipe-add/recipe-add.component';
+import { Subscription } from 'rxjs';
+import { UIService } from 'src/app/shared/ui.service';
 
 @Component({
   selector: 'app-recipe-details',
   templateUrl: './recipe-details.component.html',
   styleUrls: ['./recipe-details.component.css']
 })
-export class RecipeDetailsComponent implements OnInit {
+export class RecipeDetailsComponent implements OnInit, OnDestroy {
   id: number;
   recipe: Recipe = {
     name: '',
@@ -20,11 +22,14 @@ export class RecipeDetailsComponent implements OnInit {
     imageURL: '',
     imageSmallURL: ''
   };
+  isLoading = false;
+  loadingSubs: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private recipesService: RecipesService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private uiService: UIService
   ) { }
 
   ngOnInit() {
@@ -37,10 +42,12 @@ export class RecipeDetailsComponent implements OnInit {
           });
       }
     );
+    this.loadingSubs = this.uiService.loadingStateChanged.subscribe(
+      isLoading => this.isLoading = isLoading
+    );
   }
 
   onAddRecipeToMenu() {
-    console.log('add the recipe to the menu:', this.recipe);
     const dialogRef = this.dialog.open(RecipeAddComponent, {
       data: {
         recipe: this.recipe
@@ -48,12 +55,16 @@ export class RecipeDetailsComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('modal closed with result: ', result);
       if (result) {
-        console.log('ADD dailyMenu to DB');
-        // ADD dailyMenu to DB
+        this.recipesService.addRecipe(result);
       }
     });
+  }
+
+  ngOnDestroy() {
+    if (this.loadingSubs) {
+      this.loadingSubs.unsubscribe();
+    }
   }
 
 }
