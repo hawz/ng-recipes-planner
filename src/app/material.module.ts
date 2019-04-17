@@ -15,6 +15,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   imports: [
@@ -32,7 +35,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCheckboxModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ],
   exports: [
     MatSidenavModule,
@@ -49,7 +55,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatCheckboxModule,
     MatSnackBarModule,
     MatTabsModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTableModule,
+    MatSortModule,
+    MatPaginatorModule
   ]
 })
 export class MaterialModule { }
