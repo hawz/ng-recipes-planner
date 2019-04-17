@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { UserService } from 'src/app/shared/user.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-recipe-add',
@@ -9,11 +10,8 @@ import { UserService } from 'src/app/shared/user.service';
 })
 export class RecipeAddComponent implements OnInit {
   date = new Date();
-  selectedDate = new Date();
   endDate = new Date();
-
   meals = ['breakfast', 'lunch', 'dinner'];
-  selectedMeal: null;
 
   constructor(
     public dialogRef: MatDialogRef<RecipeAddComponent>,
@@ -24,12 +22,11 @@ export class RecipeAddComponent implements OnInit {
     this.endDate.setDate(this.endDate.getDate() + 6);
   }
 
-  addRecipe() {
-    console.log(this.selectedDate, this.selectedMeal);
+  addRecipe(mealForm: NgForm) {
     this.dialogRef.close({
       ...this.data.recipe,
-      date: this.selectedDate,
-      meal: this.selectedMeal
+      date: mealForm.value.selectedDate,
+      meal: mealForm.value.selectedMeal
     });
   }
 
