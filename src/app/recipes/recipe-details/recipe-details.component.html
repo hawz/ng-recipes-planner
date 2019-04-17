@@ -1,4 +1,7 @@
 <section>
+  <div fxLayoutAlign="center center" class="loading-shade" *ngIf="isLoading">
+    <mat-spinner></mat-spinner>
+  </div>
   <mat-card>
     <mat-card-header>
       <div mat-card-avatar class="header-image">
