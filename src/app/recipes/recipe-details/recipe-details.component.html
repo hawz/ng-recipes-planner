@@ -47,7 +47,8 @@
     <mat-card-actions fxLayoutAlign="space-between">
       <button color="primary" [routerLink]="['/recipes']" routerLinkActive="router-link-active" mat-flat-button>Back
         to recipes</button>
-      <button color="primary" mat-flat-button (click)="onAddRecipeToMenu()">Add to weekly menu</button>
+      <button color="primary" *ngIf="!isEdit" mat-flat-button (click)="onAddRecipeToMenu()">Add to weekly menu</button>
+      <button color="primary" *ngIf="isEdit" mat-flat-button (click)="onRemoveRecipeFromMenu()">Remove from menu</button>
     </mat-card-actions>
   </mat-card>
 </section>

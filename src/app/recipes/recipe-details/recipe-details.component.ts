@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Data } from '@angular/router';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
 import { MatDialog } from '@angular/material';
 import { RecipeAddComponent } from '../recipe-add/recipe-add.component';
 import { Subscription } from 'rxjs';
 import { UIService } from 'src/app/shared/ui.service';
+import { RecipeRemoveComponent } from '../recipe-remove/recipe-remove.component';
 
 @Component({
   selector: 'app-recipe-details',
@@ -23,6 +24,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
     imageSmallURL: ''
   };
   isLoading = false;
+  isEdit = false;
   loadingSubs: Subscription;
 
   constructor(
@@ -33,24 +35,21 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.route.data.subscribe(
+      (data: Data) => {
+        this.recipe = data['recipe'];
+      }
+    );
 
-    this.route.params.subscribe(
-      (params: Params) => {
-        this.id = +params['id'];
-        this.fetchRecipe();
+    this.route.queryParams.subscribe(
+      (queryParams: Params) => {
+        this.isEdit = queryParams['edit'] === '1' ? true : false;
       }
     );
 
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(
       isLoading => this.isLoading = isLoading
     );
-  }
-
-  fetchRecipe() {
-    this.recipesService.fetchRecipe(this.id)
-      .subscribe((recipe: Recipe) => {
-        this.recipe = recipe;
-      });
   }
 
   onAddRecipeToMenu() {
@@ -63,6 +62,22 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.recipesService.addRecipe(result);
+      }
+    });
+  }
+
+  onRemoveRecipeFromMenu() {
+    const dialogRef = this.dialog.open(RecipeRemoveComponent, {
+      data: {
+        recipe: this.recipe
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (this.isEdit && result) {
+        const meal = this.route.snapshot.queryParams['meal'];
+        const seconds = +this.route.snapshot.queryParams['seconds'];
+        this.recipesService.removeRecipe(this.recipe, meal, seconds);
       }
     });
   }

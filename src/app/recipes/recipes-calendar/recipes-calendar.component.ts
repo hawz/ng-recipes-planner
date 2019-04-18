@@ -4,6 +4,7 @@ import { DailyMenu } from '../dailyMenu.model';
 import { Subscription } from 'rxjs';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-recipes-calendar',
@@ -15,7 +16,11 @@ export class RecipesCalendarComponent implements OnInit, OnDestroy {
   weekMenu: DailyMenu[];
   recipesSubscription: Subscription;
 
-  constructor(private recipesService: RecipesService) { }
+  constructor(
+    private recipesService: RecipesService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     // here we should search for recipes saved for the next week ahead
@@ -42,6 +47,18 @@ export class RecipesCalendarComponent implements OnInit, OnDestroy {
       };
       this.weekMenu.push(dailyMenu);
     }
+  }
+
+  onClickRecipe(recipe: Recipe) {
+    // console.log(recipe, recipe.meal, new Date(recipe.date.seconds * 1000));
+    this.router.navigate([recipe.recipeId], {
+      queryParams: {
+        edit: '1',
+        meal: recipe.meal,
+        seconds: recipe.date.seconds
+      },
+      relativeTo: this.route
+    });
   }
 
   ngOnDestroy() {
