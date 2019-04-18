@@ -91,6 +91,46 @@ export class RecipesService {
     });
   }
 
+  removeRecipe(recipe: Recipe, meal: string, seconds: number) {
+    this.uiService.loadingStateChanged.next(true);
+    const recipeDate = new Date(seconds * 1000);
+    console.log('recipesService.removeRecipe', recipe, meal, recipeDate);
+    this.db
+      .collection('savedRecipes', ref =>
+        ref
+          .where('userId', '==', this.userService.getUser().uid)
+          .where('recipeId', '==', recipe.recipeId)
+          .where('meal', '==', meal)
+          .where('date', '==', recipeDate)
+      )
+      .snapshotChanges()
+      .pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data() as Recipe;
+            const id = a.payload.doc.id;
+            return { id, ...data};
+          });
+        })
+      )
+      .subscribe(
+        (recipes: any[]) => {
+          console.log(recipes);
+          this.db.doc(`savedRecipes/${recipes[0].id}`)
+            .delete()
+            .then(() => {
+              this.uiService.loadingStateChanged.next(false);
+              this.uiService.openSnackBar('Recipe successfully removed.', null, 3000);
+            })
+            .catch(err => {
+              this.uiService.loadingStateChanged.next(false);
+              this.uiService.openSnackBar('Recipe deletion failed, please try again later.', null, 3000);
+            });
+        }
+      );
+
+  }
+
   getWeekMenu() {
     const startDay = new Date();
     const endDay = new Date();
