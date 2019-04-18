@@ -8,6 +8,7 @@ import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { ShortenPipe } from '../shared/shorten.pipe';
 import { RecipeDetailsComponent } from './recipe-details/recipe-details.component';
 import { RecipeAddComponent } from './recipe-add/recipe-add.component';
+import { RecipeRemoveComponent } from './recipe-remove/recipe-remove.component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { RecipeAddComponent } from './recipe-add/recipe-add.component';
     RecipesListComponent,
     ShortenPipe,
     RecipeDetailsComponent,
-    RecipeAddComponent
+    RecipeAddComponent,
+    RecipeRemoveComponent
   ],
   imports: [
     SharedModule,
@@ -24,6 +26,9 @@ import { RecipeAddComponent } from './recipe-add/recipe-add.component';
   ],
   exports: [],
   providers: [],
-  entryComponents: [RecipeAddComponent]
+  entryComponents: [
+    RecipeAddComponent,
+    RecipeRemoveComponent
+  ]
 })
 export class RecipesModule { }
