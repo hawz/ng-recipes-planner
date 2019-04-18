@@ -1,9 +1,9 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, AfterViewInit } from '@angular/core';
 import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
 import { Subscription } from 'rxjs';
 import { UIService } from 'src/app/shared/ui.service';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator } from '@angular/material';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { NgForm } from '@angular/forms';
 

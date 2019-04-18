@@ -33,18 +33,24 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.recipesService.fetchRecipe(this.id)
-          .subscribe((recipe: Recipe) => {
-            this.recipe = recipe;
-          });
+        this.fetchRecipe();
       }
     );
+
     this.loadingSubs = this.uiService.loadingStateChanged.subscribe(
       isLoading => this.isLoading = isLoading
     );
+  }
+
+  fetchRecipe() {
+    this.recipesService.fetchRecipe(this.id)
+      .subscribe((recipe: Recipe) => {
+        this.recipe = recipe;
+      });
   }
 
   onAddRecipeToMenu() {

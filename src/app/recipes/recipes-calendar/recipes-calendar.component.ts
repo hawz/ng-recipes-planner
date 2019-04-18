@@ -42,7 +42,6 @@ export class RecipesCalendarComponent implements OnInit, OnDestroy {
       };
       this.weekMenu.push(dailyMenu);
     }
-    // console.log(this.weekMenu);
   }
 
   ngOnDestroy() {
