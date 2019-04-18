@@ -1,3 +1,15 @@
+/**
+ *
+ *                        AUTH-ROUTING MODULE
+ *
+ * The AuthRoutingModule defines the two routes handled inside the AuthModule.
+ *
+ * The routes here defined are:
+ * - signup --> handled by the SignupComponent
+ * - login --> handled by the LoginComponent
+ *
+ */
+
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

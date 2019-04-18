@@ -1,3 +1,12 @@
+/**
+ *
+ *                     MATERIAL MODULE
+ *
+ * This is a separate module where all the Angular Material
+ * dependencies are imported and exported in order to be used
+ * across the entire application.
+ *
+ */
 import { NgModule } from '@angular/core';
 
 import { MatSidenavModule } from '@angular/material/sidenav';
@@ -22,7 +31,6 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSelectModule } from '@angular/material/select';
 import { MatChipsModule } from '@angular/material/chips';
-
 
 @NgModule({
   imports: [
