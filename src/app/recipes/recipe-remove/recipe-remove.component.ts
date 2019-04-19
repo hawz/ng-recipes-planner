@@ -1,3 +1,13 @@
+/**
+ *        RECIPE-REMOVE COMPONENT
+ *
+ * The RecipeRemoveComponent is responsible for handling the dialog modal
+ * which pops up when the user decides to remove a certain recipe from the
+ * week calendar.
+ *
+ * It returns true / false to the calling component according to the user decision.
+ */
+
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 

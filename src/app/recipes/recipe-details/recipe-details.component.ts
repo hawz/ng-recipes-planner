@@ -104,7 +104,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   onRemoveRecipeFromMenu() {
     const dialogRef = this.dialog.open(RecipeRemoveComponent, {
       data: {
-        recipe: this.recipe
+        message: `You will cancel ${this.recipe.name}`
       }
     });
 
