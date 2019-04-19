@@ -17,8 +17,20 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanLoad, CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
 
+  /**
+   * @param authService the Authentication Service is injected in order to call the isAuth method
+   * @param router the router is injected in order to redirect users if they're not authenticated
+   */
+  constructor(
+    private authService: AuthService,
+    private router: Router
+  ) { }
+
+  /**
+   * the canActivate interface is implemented here in order to return true only if the authService.isAuth()
+   * method returns true. Otherwise it redirects users to the login route.
+   */
   canActivate() {
     if (this.authService.isAuth()) {
       return true;
@@ -27,6 +39,10 @@ export class AuthGuard implements CanLoad, CanActivate {
     }
   }
 
+  /**
+   * the canLoad interface is implemented here in order to return true only if the authService.isAuth()
+   * method returns true. Otherwise it redirects users to the login route.
+   */
   canLoad(route: Route) {
     if (this.authService.isAuth()) {
       return true;
