@@ -1,5 +1,6 @@
 /**
- * RECIPES-CALENDAR COMPONENT
+ *
+ *                        RECIPES-CALENDAR COMPONENT
  *
  * The RecipesCalendarComponent is responsible for displaying the saved recipes
  * and place them in the week calendar according to their date and selected meal.

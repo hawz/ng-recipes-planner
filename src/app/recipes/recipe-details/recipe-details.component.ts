@@ -1,9 +1,9 @@
 /**
- * RECIPE-DETAILS COMPONENT
+ *
+ *                   RECIPE-DETAILS COMPONENT
  *
  * The RecipeDetailsComponent is responsible for displaying the recipe
  * details of a given recipe, specified by the recipe id in the URL.
- *
  *
  */
 import { Component, OnInit, OnDestroy } from '@angular/core';
