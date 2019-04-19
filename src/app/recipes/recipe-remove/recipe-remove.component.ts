@@ -3,7 +3,7 @@
  *
  * The RecipeRemoveComponent is responsible for handling the dialog modal
  * which pops up when the user decides to remove a certain recipe from the
- * week calendar.
+ * week calendar. Basically it's a confirm modal.
  *
  * It returns true / false to the calling component according to the user decision.
  */
