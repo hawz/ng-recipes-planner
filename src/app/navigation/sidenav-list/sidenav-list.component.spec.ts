@@ -3,9 +3,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SidenavListComponent } from './sidenav-list.component';
 import { MaterialModule } from 'src/app/material.module';
 import { AuthService } from 'src/app/auth/auth.service';
-import { Subscription } from 'rxjs';
-
-
 
 describe('SidenavListComponent', () => {
   let component: SidenavListComponent;

@@ -8,7 +8,6 @@ import { UIService } from 'src/app/shared/ui.service';
 import { RecipesService } from '../recipes.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { of } from 'rxjs';
-import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 describe('RecipeDetailsComponent', () => {
   let component: RecipeDetailsComponent;
@@ -17,18 +16,22 @@ describe('RecipeDetailsComponent', () => {
   beforeEach(async(() => {
     const uiServiceStub = {
       loadingStateChanged: {
-        subscribe() {}
+        subscribe() { }
       }
     };
 
     const recipesServiceStub = {
       fetchRecipe() {
         return of({ recipeId: 'id' });
-      }
+      },
+      addRecipe() { },
+      removeRecipe() { }
     };
 
     TestBed.configureTestingModule({
-      declarations: [RecipeDetailsComponent],
+      declarations: [
+        RecipeDetailsComponent,
+      ],
       imports: [
         BrowserAnimationsModule,
         MaterialModule,
@@ -46,10 +49,13 @@ describe('RecipeDetailsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(RecipeDetailsComponent);
     component = fixture.componentInstance;
+    spyOn(component.route.data, 'subscribe');
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
 });

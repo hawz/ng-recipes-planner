@@ -4,9 +4,9 @@ import { RecipesService } from '../recipes.service';
 import { Recipe } from '../recipe.model';
 import { MatDialog } from '@angular/material';
 import { RecipeAddComponent } from '../recipe-add/recipe-add.component';
+import { RecipeRemoveComponent } from '../recipe-remove/recipe-remove.component';
 import { Subscription } from 'rxjs';
 import { UIService } from 'src/app/shared/ui.service';
-import { RecipeRemoveComponent } from '../recipe-remove/recipe-remove.component';
 
 @Component({
   selector: 'app-recipe-details',
@@ -28,7 +28,7 @@ export class RecipeDetailsComponent implements OnInit, OnDestroy {
   loadingSubs: Subscription;
 
   constructor(
-    private route: ActivatedRoute,
+    public route: ActivatedRoute,
     private recipesService: RecipesService,
     public dialog: MatDialog,
     private uiService: UIService
