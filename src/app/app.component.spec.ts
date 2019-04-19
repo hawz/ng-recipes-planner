@@ -1,6 +1,6 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { of, Subject } from 'rxjs';
+import { of } from 'rxjs';
 
 import { AppComponent } from './app.component';
 import { SidenavListComponent } from './navigation/sidenav-list/sidenav-list.component';
