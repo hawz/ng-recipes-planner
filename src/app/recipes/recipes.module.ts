@@ -1,3 +1,19 @@
+/**
+ *
+ *                      RECIPES MODULE
+ *
+ * The RecipesModule is a separate external module which is responsible for
+ * handling the recipes, that means:
+ *
+ * - displaying the recipes list
+ * - displaying the recipes plan (calendar) for the next week
+ * - displaying a single recipe details:
+ *   - before adding it to the calendar
+ *   - before removing it from the calendar
+ * - adding a recipe to the calendar
+ * - removing a recipe from the calendar
+ */
+
 import { NgModule } from '@angular/core';
 import { SharedModule } from '../shared/shared.module';
 
