@@ -1,3 +1,12 @@
+/**
+ *
+ *    USER SERVICE
+ *
+ * The UserService is a simple class which is used whenever a user authenticates in order
+ * to save the currently active user.
+ *
+ */
+
 import { Injectable } from '@angular/core';
 import { User } from 'firebase';
 
@@ -9,10 +18,16 @@ export class UserService {
 
   constructor() { }
 
+  /**
+   * @param user the user to be saved, it's an instance of the User class provided by firebase.
+   */
   setUser(user: User) {
     this.user = user;
   }
 
+  /**
+   * This method returns the authenticated user (if present)
+   */
   getUser() {
     if (this.user) {
       return this.user;

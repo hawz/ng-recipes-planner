@@ -126,6 +126,7 @@ export class AuthService {
         this.router.navigate(['/recipes']);
       } else {
         // NO user authenticated
+        this.userService.setUser(user);
         this.recipesService.cancelSubscriptions();
         this.isAuthenticated = false;
         this.authChange.next(false);
