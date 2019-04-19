@@ -1,3 +1,12 @@
+/**
+ * RECIPES-CALENDAR COMPONENT
+ *
+ * The RecipesCalendarComponent is responsible for displaying the saved recipes
+ * and place them in the week calendar according to their date and selected meal.
+ *
+ * It prepares an array of dailyMenu objects for the week ahead, which will be then
+ * used to display the recipes for each day.
+ */
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import * as moment from 'moment';
 import { DailyMenu } from '../dailyMenu.model';
@@ -12,18 +21,29 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./recipes-calendar.component.css']
 })
 export class RecipesCalendarComponent implements OnInit, OnDestroy {
-  today: Date = new Date();
   weekMenu: DailyMenu[];
   recipesSubscription: Subscription;
 
+  /**
+   * @param recipesService Recipes service used for fetching recipes
+   * @param route Contains info about the active route
+   * @param router Router instance used to provide navigation
+   */
   constructor(
     private recipesService: RecipesService,
     private route: ActivatedRoute,
     private router: Router
   ) { }
 
+  /**
+   * When initializing the component, the menuChanged subject is subscribed in order
+   * to receive updates for the recipes. Each time this happens, the createWeekMenu
+   * method is called, passing the received recipes, in order to build the weekMenu
+   * array.
+   * Also, the getWeekMenu method from the recipesService is called for the
+   * first time,fetching recipes for the week ahead.
+   */
   ngOnInit() {
-    // here we should search for recipes saved for the next week ahead
     this.recipesSubscription = this.recipesService.menuChanged.subscribe(
       (recipes: Recipe[]) => {
         this.createWeekMenu(recipes);
@@ -33,6 +53,14 @@ export class RecipesCalendarComponent implements OnInit, OnDestroy {
     this.recipesService.getWeekMenu();
   }
 
+  /**
+   * The createWeekMenu method creates an array of DailyMenu objects
+   * starting from a list of recipes. It's meant to create the data
+   * to be displayed inside the calendar, filtering for each day, the recipes
+   * meant to be eaten for breakfast, lunch or dinner.
+   *
+   * @param recipes array of recipes to create the weekMenu with
+   */
   private createWeekMenu(recipes: Recipe[]) {
     this.weekMenu = [];
     for (let index = 0; index < 7; index++) {
@@ -49,8 +77,12 @@ export class RecipesCalendarComponent implements OnInit, OnDestroy {
     }
   }
 
+  /**
+   * when clicking on a single recipe inside the calendar, the user is redirected
+   * to the recipe details view, adding some useful query parameters such as the edit flag,
+   * the recipe timestamp and the meal.
+   */
   onClickRecipe(recipe: Recipe) {
-    // console.log(recipe, recipe.meal, new Date(recipe.date.seconds * 1000));
     this.router.navigate([recipe.recipeId], {
       queryParams: {
         edit: '1',
@@ -61,6 +93,10 @@ export class RecipesCalendarComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * when destroying the component, this lifecycle hook removes the recipes subscription
+   * calling the unsubscribe() method on it.
+   */
   ngOnDestroy() {
     if (this.recipesSubscription) {
       this.recipesSubscription.unsubscribe();
