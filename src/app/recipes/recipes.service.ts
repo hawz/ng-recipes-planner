@@ -163,7 +163,8 @@ export class RecipesService {
       )
       .subscribe(
         (recipes: any[]) => {
-          this.db.doc(`savedRecipes/${recipes[0].id}`)
+          if (recipes.length) {
+            this.db.doc(`savedRecipes/${recipes[0].id}`)
             .delete()
             .then(() => {
               this.uiService.loadingStateChanged.next(false);
@@ -173,6 +174,7 @@ export class RecipesService {
               this.uiService.loadingStateChanged.next(false);
               this.uiService.openSnackBar('Recipe deletion failed, please try again later.', null, 3000);
             });
+          }
         }
       );
 
