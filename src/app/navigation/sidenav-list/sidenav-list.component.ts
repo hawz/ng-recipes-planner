@@ -31,7 +31,7 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   /**
    *
    * @param authService the authentication service is injected in order to provide updates about
-   * the user authentication state.
+   * the user authentication state, and call the logout() method.
    */
   constructor(private authService: AuthService) { }
 
