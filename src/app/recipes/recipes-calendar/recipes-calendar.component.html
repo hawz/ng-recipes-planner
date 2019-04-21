@@ -1,0 +1,29 @@
+<mat-grid-list cols="2" role="list">
+  <mat-grid-tile *ngFor="let dailyMenu of weekMenu" [colspan]="1" [rowspan]="2" [style.background]="'lightcoral'"
+    role="listitem">
+    <mat-grid-tile-header>{{ dailyMenu.day }}</mat-grid-tile-header>
+    <!-- <div fxFlex fxLayout="column" fxLayoutGap="2px"> -->
+    <mat-chip-list *ngIf="dailyMenu.breakfast.length || dailyMenu.lunch.length || dailyMenu.dinner.length"
+      class="mat-chip-list-stacked">
+      <!-- Breakfast -->
+      <small *ngIf="dailyMenu.breakfast.length" class="header-chip">Breakfast</small>
+      <mat-chip *ngFor="let recipe of dailyMenu.breakfast" [style.background]="'lightsalmon'" [style.color]="'#000000'"
+        (click)="onClickRecipe(recipe)">
+        {{ recipe.name | shorten : 35 }}
+      </mat-chip>
+      <!-- Lunch -->
+      <small *ngIf="dailyMenu.lunch.length" class="header-chip">Lunch</small>
+      <mat-chip *ngFor="let recipe of dailyMenu.lunch" [style.background]="'lightgreen'" [style.color]="'#000000'"
+        (click)="onClickRecipe(recipe)">
+        {{ recipe.name | shorten : 35 }}
+      </mat-chip>
+      <!-- Dinner -->
+      <small *ngIf="dailyMenu.dinner.length" class="header-chip">Dinner</small>
+      <mat-chip *ngFor="let recipe of dailyMenu.dinner" [style.background]="'lightblue'" [style.color]="'#000000'"
+        (click)="onClickRecipe(recipe)">
+        {{ recipe.name | shorten : 35 }}
+      </mat-chip>
+    </mat-chip-list>
+    <!-- </div> -->
+  </mat-grid-tile>
+</mat-grid-list>

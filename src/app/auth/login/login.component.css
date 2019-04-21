@@ -1,0 +1,11 @@
+section {
+  padding: 20px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+p {
+  text-align: center;
+}

@@ -1,6 +1,11 @@
 # NgRecipesPlanner
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.2.
+This project was created using **Angular** version 7.2.2, **Angular Material** modules and Angular **Flex Layout**.
+
+It represents a simple menu where user can signup, login (via Firebase), then search and select a recipe in order to
+add it to the menu for the week ahead.
+
+The app can be seen [here](http://menu.albertomasia.it).
 
 ## Development server
 

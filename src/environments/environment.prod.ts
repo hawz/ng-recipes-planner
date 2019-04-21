@@ -1,3 +1,15 @@
 export const environment = {
-  production: true
+  production: true,
+  firebase: {
+    apiKey: 'AIzaSyBA_ZhapdUwXBXguCo1MQcW_B0NXtv5-QA',
+    authDomain: 'ng-meal-planner-cdfa4.firebaseapp.com',
+    databaseURL: 'https://ng-meal-planner-cdfa4.firebaseio.com',
+    projectId: 'ng-meal-planner-cdfa4',
+    storageBucket: 'ng-meal-planner-cdfa4.appspot.com',
+    messagingSenderId: '593866636203'
+  },
+  bigOven: {
+    apiKey: 'Z6Tnh1gToaeIZG64YkHnhog0gv2kA36Z',
+    apiURL: 'http://api.bigoven.com'
+  }
 };
